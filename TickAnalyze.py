@@ -32,6 +32,33 @@ class TickerAnalyze(object):
 
         return hist
 
+    def market(self, ticker):
+        """
+
+        :param ticker:
+        :return:
+        """
+        stock = yf.Ticker(ticker)
+        lopt = stock.options[0]
+        print("Options: {}".format(lopt))
+        opts = stock.option_chain(date=lopt)
+        print("Option Length: {}".format(len(opts)))
+        for keyrx in opts.calls:
+            print(keyrx)
+            print(opts[0])
+
+    def info(self, ticker):
+        """
+
+        :param ticker:
+        :return:
+        """
+        stock = yf.Ticker(ticker)
+        s_info = stock.info
+        print("Stock: {}".format(s_info))
+        return s_info
+
+
     def corelate(self, ticker1, ticker2):
         """
         :param ticker1:
@@ -58,6 +85,11 @@ if __name__ == '__main__':
     ipaddr = '127.0.0.1'
 
     tckr = TickerAnalyze()
-    tckr.history(ticker='AAPL')
+    tckr.history(ticker='JNUG', period='1d')
+
+    tckr.info(ticker='TQQQ')
+    #tckr.market(ticker='TQQQ')
 
 
+    tckr.info(ticker='FNGU')
+    #tckr.market(ticker='FNGU')
